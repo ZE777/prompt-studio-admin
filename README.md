@@ -1,73 +1,53 @@
-# React + TypeScript + Vite
+# Prompt Studio Admin
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+AI Prompt 管理後台，提供 Persona 設定、對話記錄管理與多模型切換功能。
 
-Currently, two official plugins are available:
+## 技術棧
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+| 類別 | 技術 |
+|------|------|
+| 框架 | React 19 + TypeScript |
+| 建置工具 | Vite |
+| 樣式 | Tailwind CSS v4 |
+| 全域狀態 | Zustand（含 persist） |
+| 表單驗證 | React Hook Form |
+| HTTP 客戶端 | Axios（含攔截器） |
+| 主題切換 | Context API + Tailwind dark mode |
 
-## React Compiler
+## 功能
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Persona 管理**：建立、編輯、切換 AI 角色設定
+- **對話記錄**：側邊欄管理對話清單，支援新增與切換
+- **深色 / 淺色主題**：全站雙色主題即時切換
+- **多模型切換**：Gemini Flash、Groq Llama（免費方案）
 
-## Expanding the ESLint configuration
+## 本機開發
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+```bash
+# 安裝相依套件
+npm install
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+# 複製環境變數範本
+cp .env.example .env.local
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# 啟動開發伺服器
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 環境變數
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+| 變數名稱 | 說明 | 預設值 |
+|----------|------|--------|
+| `VITE_API_BASE_URL` | 後端 API 位址 | `http://localhost:5000` |
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 專案結構
+
+```
+src/
+├── components/     # UI 元件
+├── context/        # Context API（主題）
+├── hooks/          # Custom Hooks
+├── lib/            # Axios instance
+├── store/          # Zustand stores
+└── App.tsx
 ```
